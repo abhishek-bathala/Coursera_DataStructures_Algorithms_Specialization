@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 int gcd_naive(int a, int b) {
   int current_gcd = 1;
@@ -12,9 +13,24 @@ int gcd_naive(int a, int b) {
   return current_gcd;
 }
 
+int gcd_fast (int a, int b) {
+  int temp = 0;
+
+  while (a != 0 && b != 0) {
+    temp = a % b;
+    a = b;
+    b = temp;
+  }
+
+  if (b != 0) {
+    return b;
+  }
+  return a;
+}
+
 int main() {
   int a, b;
-  std::cin >> a >> b;
-  std::cout << gcd_naive(a, b) << std::endl;
+  cin >> a >> b;
+  cout << gcd_fast(a, b) << std::endl;
   return 0;
 }

@@ -33,12 +33,14 @@ int fibonacci_fast(int n) {
     else if(n == 1){
         return 1;
     }
+    nums[0] = 1;
+    nums[1] = 1;
 
     for(int i = 2; i < n; i++){
         nums[i] = nums[i-1]+nums[i-2];
     }
 
-    return nums[n];
+    return nums[n-1];
 }
 
 void test_solution() {
@@ -50,10 +52,8 @@ void test_solution() {
 
 int main() {
     int n = 0;
-    std::cin >> n;
+    cin >> n;
 
-    std::cout << fibonacci_naive(n) << '\n';
-    //test_solution();
-    std::cout << endl << fibonacci_fast(n) << '\n';
+    cout << endl << fibonacci_fast(n) << '\n';
     return 0;
 }
