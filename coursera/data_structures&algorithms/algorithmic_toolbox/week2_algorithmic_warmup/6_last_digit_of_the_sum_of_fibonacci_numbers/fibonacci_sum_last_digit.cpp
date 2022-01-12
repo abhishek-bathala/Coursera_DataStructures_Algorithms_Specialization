@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 int fibonacci_sum_naive(long long n) {
     if (n <= 1)
         return n;
@@ -20,18 +22,27 @@ int fibonacci_sum_naive(long long n) {
 
 
 int fibonacci_sum_fast(long long n) {
-    int sum = 0;
-    int prev_last_digit = 0;
-
-    if(n == 0 || n == 1) {
-        return (int)n;
+    if (n <= 1) {
+        return n;
     }
 
-    
+    int sum = 0;
+    int prev_last_digit = 0;
+    int curr_last_digit = 1;
+    int temp = 0;
+
+    for (int i = 0; i < n; ++i) {
+        sum = (sum + curr_last_digit) % 10;
+        temp = (prev_last_digit + curr_last_digit) % 10;
+        prev_last_digit = curr_last_digit;
+        curr_last_digit = temp;
+    }
+
+    return sum;
 }
 
 int main() {
     long long n = 0;
-    std::cin >> n;
-    std::cout << fibonacci_sum_fast(n);
+    cin >> n;
+    cout << endl << fibonacci_sum_fast(n);
 }
