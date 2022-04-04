@@ -21,32 +21,32 @@ double get_optimal_value(int capacity, vector<int> weights, vector<int> values) 
 
       }
     }
-
-    for (int i = 0; i < values.size(); i++) {
-      if (capacity == 0) {
-        return value;
-      }
-
-      if (weights.at(i) < capacity) {
-        int min = 0;
-        for (int j = 0; j < i-1; j++) {
-          if (weights.at(j) < weights.at(j+1)) {
-
-          }
-        }
-        capacity -= weights.at(i);
-      }
-    }
-
   }
-  
+
+  /*cout << "Printing sorted items" << endl;
   for (auto x : values) {
     cout << x << endl;
    }
 
   for (auto x : weights) {
     cout << x << endl;
+  }*/
+
+  for (int i = 0; i < values.size(); i++) {
+    if (capacity == 0) {
+      return value;
+    }
+
+    if (capacity >= weights.at(i)) {
+      value += values.at(i);
+      capacity -= weights.at(i);
+    }
+    else if (capacity < weights.at(i)) {
+      value += values.at(i)*((double)capacity/(double)weights.at(i));
+      return value;
+    }
   }
+  
   return value;
 }
 
