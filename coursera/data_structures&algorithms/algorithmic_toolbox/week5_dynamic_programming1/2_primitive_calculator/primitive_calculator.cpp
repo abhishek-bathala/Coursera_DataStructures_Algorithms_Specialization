@@ -2,7 +2,8 @@
 #include <vector>
 #include <algorithm>
 
-using std::vector;
+using namespace std;
+
 
 vector<int> optimal_sequence(int n) {
   std::vector<int> sequence;
