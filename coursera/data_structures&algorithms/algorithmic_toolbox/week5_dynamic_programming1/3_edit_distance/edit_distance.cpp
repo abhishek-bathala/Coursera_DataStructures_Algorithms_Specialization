@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 
-using std::string;
+using namespace std;
 
 int edit_distance(const string &str1, const string &str2) {
-  //write your code here
+
   return 0;
 }
 
