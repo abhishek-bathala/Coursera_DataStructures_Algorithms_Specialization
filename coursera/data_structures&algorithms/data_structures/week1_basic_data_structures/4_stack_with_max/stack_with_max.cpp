@@ -4,16 +4,13 @@
 #include <cassert>
 #include <algorithm>
 
-using std::cin;
-using std::string;
-using std::vector;
-using std::cout;
-using std::max_element;
+using namespace std;
 
 class StackWithMax {
-    vector<int> stack;
-
   public:
+
+    vector<int> maximum;
+    vector<int> stack;
 
     void Push(int value) {
         stack.push_back(value);
@@ -26,7 +23,7 @@ class StackWithMax {
 
     int Max() const {
         assert(stack.size());
-        return *max_element(stack.begin(), stack.end());
+        return maximum[maximum.size()-1];
     }
 };
 
@@ -43,9 +40,22 @@ int main() {
         cin >> query;
         if (query == "push") {
             cin >> value;
-            stack.Push(std::stoi(value));
+            stack.Push(stoi(value));
+            if (stack.maximum.empty()) {
+                stack.maximum.push_back(stoi(value));
+            }
+            else {
+                if (stack.maximum[stack.maximum.size()-1] < stoi(value)) {
+                    stack.maximum.push_back(stoi(value));
+                }
+                else {
+                    stack.maximum.push_back(stack.maximum[stack.maximum.size()-1]);
+                }
+            }
         }
         else if (query == "pop") {
+            //cout << "last element is " << stack.stack[stack.stack.size()-1] << endl;
+            stack.maximum.pop_back();
             stack.Pop();
         }
         else if (query == "max") {

@@ -5,13 +5,15 @@
 #include <sys/resource.h>
 #endif
 
+using namespace std;
+
 class Node;
 
 class Node {
 public:
     int key;
     Node *parent;
-    std::vector<Node *> children;
+    vector<Node *> children;
 
     Node() {
       this->parent = NULL;
@@ -23,33 +25,50 @@ public:
     }
 };
 
+int height (Node tree) {
+  if (tree.children.empty()) {
+    return 1;
+  }
+  vector<int> childs_height;
+
+  /*for (int i = 0; i < tree.children.size(); i++) {
+    childs_height[i] = height(tree.children.at(i));
+  }*/
+}
+
 
 int main_with_large_stack_space() {
-  std::ios_base::sync_with_stdio(0);
+  ios_base::sync_with_stdio(0);
   int n;
-  std::cin >> n;
+  cin >> n;
 
-  std::vector<Node> nodes;
+  vector<Node> nodes;
   nodes.resize(n);
   for (int child_index = 0; child_index < n; child_index++) {
     int parent_index;
-    std::cin >> parent_index;
+    cin >> parent_index;
     if (parent_index >= 0)
       nodes[child_index].setParent(&nodes[parent_index]);
     nodes[child_index].key = child_index;
   }
 
-  // Replace this code with a faster implementation
+  for (int i = 0; i < nodes.size(); i++) {
+    cout << nodes[i].key << endl;
+  }
+
+
+  /* Replace this code with a faster implementation
   int maxHeight = 0;
   for (int leaf_index = 0; leaf_index < n; leaf_index++) {
     int height = 0;
     for (Node *v = &nodes[leaf_index]; v != NULL; v = v->parent)
       height++;
-    maxHeight = std::max(maxHeight, height);
+    maxHeight = max(maxHeight, height);
   }
     
-  std::cout << maxHeight << std::endl;
+  cout << maxHeight << endl;*/
   return 0;
+  
 }
 
 int main (int argc, char **argv)
