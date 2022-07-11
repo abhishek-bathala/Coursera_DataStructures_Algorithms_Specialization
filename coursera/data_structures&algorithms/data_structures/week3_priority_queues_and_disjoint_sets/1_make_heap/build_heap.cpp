@@ -2,12 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-using std::vector;
-using std::cin;
-using std::cout;
-using std::swap;
-using std::pair;
-using std::make_pair;
+using namespace std;
 
 class HeapBuilder {
  private:
@@ -56,7 +51,7 @@ class HeapBuilder {
 };
 
 int main() {
-  std::ios_base::sync_with_stdio(false);
+  ios_base::sync_with_stdio(false);
   HeapBuilder heap_builder;
   heap_builder.Solve();
   return 0;
