@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -22,6 +23,11 @@ class HeapBuilder {
     data_.resize(n);
     for(int i = 0; i < n; ++i)
       cin >> data_[i];
+
+    /*for (int i = 0; i < data_.size(); i++) {
+      cout << data_[i] << " ";
+    }
+    cout << endl;*/
   }
 
   void GenerateSwaps() {
@@ -33,13 +39,48 @@ class HeapBuilder {
     // but in the worst case gives a quadratic number of swaps.
     //
     // TODO: replace by a more efficient implementation
-    for (int i = 0; i < data_.size(); ++i)
-      for (int j = i + 1; j < data_.size(); ++j) {
-        if (data_[i] > data_[j]) {
-          swap(data_[i], data_[j]);
-          swaps_.push_back(make_pair(i, j));
-        }
-      }
+
+    for (int i = floor(data_.size()/2); i >= 0; i--) {
+      siftDown(i);
+    }
+    
+  }
+
+  void siftDown(int i) {
+    /*for (int i = 0; i < data_.size(); i++) {
+      cout << data_[i] << " ";
+    }
+    cout << endl;*/
+
+    int maxIndex = i;
+    int l = leftChild(i);
+    int r = rightChild(i);
+
+    if (l < data_.size() && data_[l] < data_[maxIndex]) {
+      maxIndex = l;
+    }
+    if (r < data_.size() && data_[r] < data_[maxIndex]) {
+      maxIndex = r;
+    }
+    if (i != maxIndex) {
+      swaps_.push_back(pair<int, int>(i, maxIndex));
+      int temp = data_[i];
+      data_[i] = data_[maxIndex];
+      data_[maxIndex] = temp;
+      siftDown(maxIndex);
+    }
+  }
+
+  int parent(int i) {
+    return floor((i-1)/2);
+  }
+
+  int leftChild(int i) {
+    return (2*i)+1;
+  }
+
+  int rightChild(int i) {
+    return (2*i)+2;
   }
 
  public:
