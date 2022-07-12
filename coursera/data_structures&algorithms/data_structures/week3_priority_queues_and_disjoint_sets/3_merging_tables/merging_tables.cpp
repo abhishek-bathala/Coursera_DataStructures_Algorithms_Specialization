@@ -4,11 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::max;
-using std::vector;
+using namespace std;
 
 struct DisjointSetsElement {
 	int size, parent, rank;
@@ -29,14 +25,47 @@ struct DisjointSets {
 
 	int getParent(int table) {
 		// find parent and compress path
+		if (table != sets[table].parent) {
+			sets[table].parent = getParent(sets[table].parent);
+		}
+		return sets[table].parent;
+		
 	}
 
 	void merge(int destination, int source) {
 		int realDestination = getParent(destination);
 		int realSource = getParent(source);
+		int finalSize = -1;
 		if (realDestination != realSource) {
 			// merge two components
 			// use union by rank heuristic
+			if (sets[realDestination].rank > sets[realSource].rank) {
+				sets[realSource].parent = realDestination;
+				//max_table_size += sets[realDestination].size;
+				//cout << endl << "first if" << endl;
+				//cout << "merged " << realDestination+1 << " to bottom of " << realSource+1 << endl;
+				//cout << "size of " << realDestination+1 << " is " << sets[realDestination].size << ", " << realSource+1 << " is " << sets[realSource].size << endl;
+				sets[realDestination].size += sets[realSource].size;
+				//cout << "FINAL SIZE IS " << sets[realDestination].size << endl;
+				finalSize = sets[realDestination].size;
+
+			}
+			else {
+				//cout << endl << "else" << endl;
+				sets[realDestination].parent = realSource;
+				//cout << "merged " << realSource+1 << " to bottom of " << realDestination+1 << endl;
+				//cout << "size of " << realSource+1 << " is " << sets[realSource].size << ", " << realDestination+1 << " is " << sets[realDestination].size << endl;
+				/*if (sets[realDestination].size == sets[realSource].size) {
+					sets[realSource].rank++;
+				}*/
+				sets[realSource].size += sets[realDestination].size;
+				//cout << "FINAL SIZE IS " << sets[realSource].size << endl;
+				finalSize = sets[realSource].size;
+			}
+
+			if (finalSize > max_table_size) {
+				max_table_size = finalSize;
+			}
                         // update max_table_size
 		}		
 	}

@@ -2,9 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-using std::vector;
-using std::cin;
-using std::cout;
+using namespace std;
 
 class JobQueue {
  private:
@@ -44,6 +42,10 @@ class JobQueue {
       start_times_[i] = next_free_time[next_worker];
       next_free_time[next_worker] += duration;
     }
+
+    
+
+
   }
 
  public:
@@ -55,7 +57,7 @@ class JobQueue {
 };
 
 int main() {
-  std::ios_base::sync_with_stdio(false);
+  ios_base::sync_with_stdio(false);
   JobQueue job_queue;
   job_queue.Solve();
   return 0;
