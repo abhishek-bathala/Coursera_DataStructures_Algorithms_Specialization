@@ -2,9 +2,7 @@
 #include <vector>
 #include <string>
 
-using std::string;
-using std::vector;
-using std::cin;
+using namespace std;
 
 struct Query {
     string type, name;
@@ -26,17 +24,23 @@ vector<Query> read_queries() {
 }
 
 void write_responses(const vector<string>& result) {
+    //cout << "size of results vector is " << result.size() << endl;
     for (size_t i = 0; i < result.size(); ++i)
-        std::cout << result[i] << "\n";
+        cout << result[i] << "\n";
 }
 
 vector<string> process_queries(const vector<Query>& queries) {
     vector<string> result;
     // Keep list of all existing (i.e. not deleted yet) contacts.
-    vector<Query> contacts;
-    for (size_t i = 0; i < queries.size(); ++i)
+    vector<string> contacts(10000000, "not found");
+
+    for (size_t i = 0; i < queries.size(); ++i) {
+        int index = queries[i].number;
+        //cout << "index is " << index << endl;
         if (queries[i].type == "add") {
-            bool was_founded = false;
+            contacts[index] = queries[i].name;
+
+            /*
             // if we already have contact with such number,
             // we should rewrite contact's name
             for (size_t j = 0; j < contacts.size(); ++j)
@@ -48,25 +52,36 @@ vector<string> process_queries(const vector<Query>& queries) {
             // otherwise, just add it
             if (!was_founded)
                 contacts.push_back(queries[i]);
+            */
+
         } else if (queries[i].type == "del") {
+
+            contacts[index] = "not found";
+
+            /*
             for (size_t j = 0; j < contacts.size(); ++j)
                 if (contacts[j].number == queries[i].number) {
                     contacts.erase(contacts.begin() + j);
                     break;
                 }
+                */
         } else {
-            string response = "not found";
-            for (size_t j = 0; j < contacts.size(); ++j)
+            string response = contacts[index];
+
+            /*for (size_t j = 0; j < contacts.size(); ++j)
                 if (contacts[j].number == queries[i].number) {
                     response = contacts[j].name;
                     break;
                 }
+                */
             result.push_back(response);
         }
+    }
     return result;
 }
 
 int main() {
+
     write_responses(process_queries(read_queries()));
     return 0;
 }
