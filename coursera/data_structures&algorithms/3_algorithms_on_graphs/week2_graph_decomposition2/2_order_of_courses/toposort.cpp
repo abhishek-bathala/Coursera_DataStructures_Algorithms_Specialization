@@ -2,17 +2,36 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
-using std::pair;
+using namespace std;
 
-void dfs(vector<vector<int> > &adj, vector<int> &used, vector<int> &order, int x) {
+void explore(vector<vector<int> > &adj, int i, vector<bool> & used, vector<int> &order) {
+  used[i] = true;
+
+  for (int j = 0; j < adj[i].size(); j++) {
+    if (!used[adj[i].at(j)]) {
+      explore(adj, adj[i].at(j), used, order);
+    }
+  }
+  order.insert(order.begin(), i);
+}
+
+void dfs(vector<vector<int> > &adj, vector<bool> &used, vector<int> &order) {
   //write your code here
+  for (int i = 0; i < adj.size(); i++) {
+    if (used[i] == false) {
+      explore(adj, i, used, order);
+    }
+  }
+
 }     
 
 vector<int> toposort(vector<vector<int> > adj) {
-  vector<int> used(adj.size(), 0);
+  vector<bool> used(adj.size(), false);
   vector<int> order;
   //write your code here
+
+  dfs(adj, used, order);
+
   return order;
 }
 
