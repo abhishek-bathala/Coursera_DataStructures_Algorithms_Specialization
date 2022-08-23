@@ -30,14 +30,14 @@ int number_of_components(vector<vector<int> > &adj, vector<bool> &visited) {
 
 int main() {
   size_t n, m;
-  std::cin >> n >> m;
+  cin >> n >> m;
   vector<bool> visited(n, false);
   vector<vector<int> > adj(n, vector<int>());
   for (size_t i = 0; i < m; i++) {
     int x, y;
-    std::cin >> x >> y;
+    cin >> x >> y;
     adj[x - 1].push_back(y - 1);
     adj[y - 1].push_back(x - 1);
   }
-  std::cout << number_of_components(adj, visited);
+  cout << number_of_components(adj, visited);
 }
