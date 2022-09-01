@@ -3,13 +3,11 @@
 #include <vector>
 #include <queue>
 
-using std::vector;
-using std::queue;
-using std::pair;
-using std::priority_queue;
+using namespace std;
 
 void shortest_paths(vector<vector<int> > &adj, vector<vector<int> > &cost, int s, vector<long long> &distance, vector<int> &reachable, vector<int> &shortest) {
   //write your code here
+
 }
 
 int main() {
