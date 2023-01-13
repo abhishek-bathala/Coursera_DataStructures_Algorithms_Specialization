@@ -5,42 +5,51 @@
 
 using namespace std;
 
-struct edge {
+struct node {
   char symbol = ' ';
-  int prev = -1;
-  int next = -1;
+  int index = -1;
+  vector<int> branches;
 };
 
-typedef vector<edge> trie;
+typedef vector<node> trie;
 
 trie build_trie(vector<string> & patterns) {
   trie t;
   string pattern = "";
   int current_node = 0; //index num in trie
   char current_symbol;
+  int size = 0;
+  node root;
+  root.index = 0;
+  t.push_back(root);
   // write your code here
   for (int i = 0; i < patterns.size(); i++) {
     current_node = 0;
     pattern = patterns[i]; 
     for (int j = 0; j < pattern.size(); j++) {
-      for (size_t i = 0; i < t.size(); i++) {
-        cout << t[i].prev << "->" << t[i].next << ":" << t[i].symbol << "\n";
-      }
-      cout << endl;
-
       current_symbol = pattern[j];
       cout << "current symbol is " << current_symbol << endl;
-      cout << "current node is " << current_node << endl;
-      //finding where new edge goes
-      if (t.size() == 0) {
-        edge newEdge;
-        newEdge.prev = 0;
-        newEdge.symbol = current_symbol;
-        t.push_back(newEdge);  
+      if (t.size() == 1) {
+        node newNode;
+        size++;
+        newNode.index = size;
+        newNode.symbol = current_symbol;
+        t.push_back(newNode);
+        current_node = size;
       }
-      else if (current_symbol == t[current_node].symbol) {
+      else if (t[current_node].branches.empty()) {
+        node newNode;
+        size++;
+        newNode.index = size;
+        newNode.symbol = current_symbol;
+        t.push_back(newNode);
 
+        cout << current_node-1 << " has " << t[current_node-1].branches.size() << " branches" << endl;
+        current_node++;
       }
+      else {
+      }
+      
     }
   }
   return t;
@@ -57,8 +66,13 @@ int main() {
   }
 
   trie t = build_trie(patterns);
+  cout << endl << endl;
   for (size_t i = 0; i < t.size(); ++i) {
-      cout << t[i].prev << "->" << t[i].next << ":" << t[i].symbol << "\n";
+    cout << "i is " << i << " whose symbol is " << t[i].symbol << endl;
+    cout << "i has " << t[i].branches.size() << " branches" << endl;
+    for (size_t j = 0; j < t[i].branches.size(); j++) {
+      cout << i << "->" << j << endl;
+    }
   }
 
   return 0;
