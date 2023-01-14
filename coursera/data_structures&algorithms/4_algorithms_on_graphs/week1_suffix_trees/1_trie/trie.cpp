@@ -18,7 +18,7 @@ trie build_trie(vector<string> & patterns) {
   string pattern = "";
   int current_node = 0; //index num in trie
   char current_symbol;
-  int size = 0;
+  int size = 0; //number of nodes in adjacency list
   node root;
   root.index = 0;
   t.push_back(root);
@@ -29,28 +29,26 @@ trie build_trie(vector<string> & patterns) {
     for (int j = 0; j < pattern.size(); j++) {
       current_symbol = pattern[j];
       cout << "current symbol is " << current_symbol << endl;
-      if (t.size() == 1) {
+      if (t[current_node].branches.size() == 0) {
         node newNode;
         size++;
         newNode.index = size;
         newNode.symbol = current_symbol;
         t.push_back(newNode);
-        current_node = size;
-      }
-      else if (t[current_node].branches.empty()) {
-        node newNode;
-        size++;
-        newNode.index = size;
-        newNode.symbol = current_symbol;
-        t.push_back(newNode);
-
-        cout << current_node-1 << " has " << t[current_node-1].branches.size() << " branches" << endl;
-        current_node++;
+        t[current_node].branches.push_back(newNode.index);
+        cout << "added " << newNode.symbol << " at index " << newNode.index << endl;
+        current_node = newNode.index;
+        cout << "\tcurrentnode is now " << current_node << endl;
       }
       else {
+        for (int k = 0; k < t[current_node].branches.size(); k++) {
+          if (t[t[current_node].branches[k]].symbol == current_symbol) {
+            current_node = t[current_node].branches[k];
+            cout << "\t\tcurrentnode is now " << current_node << endl;
+          }
+        }
       }
-      
-    }
+    }        
   }
   return t;
 }
