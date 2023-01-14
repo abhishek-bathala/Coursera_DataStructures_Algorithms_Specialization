@@ -49,7 +49,7 @@ vector <int> solve (const string& text, int n, const vector <string>& patterns)
 int main (void)
 {
 	string t;
-	cin >> text;
+	cin >> t;
 
 	int n;
 	cin >> n;
