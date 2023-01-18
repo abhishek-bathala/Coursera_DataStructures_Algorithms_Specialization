@@ -41,7 +41,29 @@ vector <int> solve (const string& text, int n, const vector <string>& patterns)
 {
 	vector <int> result;
 
-	// write your code here
+	//if text is only 1 character long
+	if (text.size() == 1) {
+		for (int i = 0; i < patterns.size(); i++) {
+			if (patterns.size() != 1) {
+				continue;
+			}
+			if (letterToIndex(text[0]) == letterToIndex(patterns[0][0])) {
+
+			}
+		}
+	}
+
+	//constructing tree
+	Node root;
+
+
+	for (int i = 0; i < text.size(); i++) {
+		//if ()
+		Node newNode;
+		newNode.next[letterToIndex(text.at(i))] = i;
+	}
+
+	//finding start points of patterns in tree
 
 	return result;
 }
