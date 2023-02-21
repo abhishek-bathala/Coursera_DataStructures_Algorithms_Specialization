@@ -31,7 +31,6 @@ int letterToIndex (char letter)
 		case 'C': return 1; break;
 		case 'G': return 2; break;
 		case 'T': return 3; break;
-		case '$': return 4; break;
 		default: assert (false); return -1;
 	}
 }
