@@ -46,7 +46,7 @@ vector <int> solve (string text, int n, vector <string> patterns)
 int main (void)
 {
 	string t;
-	cin >> text;
+	cin >> t;
 
 	int n;
 	cin >> n;
@@ -58,7 +58,7 @@ int main (void)
 	}
 
 	vector <int> ans;
-	ans = solve (t, n, s);
+	ans = solve (t, n, patterns);
 
 	for (int i = 0; i < (int) ans.size (); i++)
 	{
