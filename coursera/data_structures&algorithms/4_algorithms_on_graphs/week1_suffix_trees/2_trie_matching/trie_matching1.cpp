@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <cassert>
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -7,161 +5,62 @@
 
 using namespace std;
 
-int const Letters =    4;
-int const NA      =   -1;
+void computePrefixes(vector<int> &prefixes, string& s){
+  int border = 0;
+  prefixes[0] = 0;
+  for (int i = 1; i < s.length(); i++) {
 
-struct Node
-{
-	int next [Letters];
-	int indexInText;
+    while (border > 0 && s[i] != s[border]) {
+      border = prefixes[border-1];
+    }
 
-	Node ()
-	{
-		fill (next, next + Letters, NA);
-		indexInText = -1;
-	}
-
-	bool isLeaf () const
-	{
-	    return (next[0] == NA && next[1] == NA && next[2] == NA && next[3] == NA);
-	}
-};
-
-int letterToIndex (char letter)
-{
-	switch (letter)
-	{
-		case 'A': return 0; break;
-		case 'C': return 1; break;
-		case 'G': return 2; break;
-		case 'T': return 3; break;
-		default: assert (false); return -1;
-	}
+    if (s[i] == s[border]) {
+      border++;
+    }
+    else {
+      border = 0;
+    }
+    prefixes[i] = border;
+  }
 }
 
-void search (string& pattern, string& text, vector <bool>& isStart) {
-	//cout << "searching for " << pattern << endl;
+// Find all occurrences of the pattern in the text and return a
+// vector with all positions in the text (starting from 1) where 
+// the pattern starts in the text.
+void find_pattern(const string& pattern, const string& text, vector<bool> &results) {
+  // Implement this function yourself
+  string s = pattern + "$" + text;
 
-	vector<int> shift(pattern.size(), -1);
+  vector<int> prefixes(s.length());
+  //cout << "prefix length is " << prefixes.size() << endl;
+  computePrefixes(prefixes, s);
 
-	for (int i = 0; i < shift.size(); i++) {
-		shift[letterToIndex(pattern[i])] = i;
-		//cout << shift[letterToIndex(pattern[i])];
-	}
-	//cout << endl;
-
-	int shiftNum = 0;
-
-	while (shiftNum <= text.size()-pattern.size()) {
-		int patternIndex = pattern.size() - 1;
-		//cout << "patternindex is " << patternIndex << endl;
-
-		while (patternIndex >= 0 && pattern[patternIndex] == text[shiftNum + patternIndex]) {
-			patternIndex--;
-		}
-		//cout << "now patternindex is " << patternIndex << endl;
-
-		if (patternIndex < 0) {
-			//cout << "\tpattern found at " << shiftNum << endl;
-			isStart[shiftNum] = true;
-
-			if (shiftNum + pattern.size() < text.size()) {
-				shiftNum += pattern.size() - shift[letterToIndex(text[shiftNum+pattern.size()])];
-			}
-			else {
-				shiftNum += 1;
-			}
-		}
-
-		else {
-			shiftNum += max(1, patternIndex - shift[letterToIndex(text[shiftNum + patternIndex])]);
-		}
-	}
-
+  for (int i = pattern.length()+1; i < s.length(); i++) {
+    if (prefixes[i] == pattern.length()) {
+      results[i-2*pattern.length()] = true;
+    }
+  }
 }
 
+int main() {
+  string text;
+  cin >> text;
 
-vector <int> solve (string& text, int n, vector <string>& patterns)
-{
-	vector <int> result;
-	/*vector <Node> trie;
-	Node root;
-	int currentnode = 0;
-	trie.push_back(root);
+  int n;
+  cin >> n;
+  
+  vector<string> patterns (n);
+  vector<bool> results (text.length());
+  for (int i = 0; i < n; i++) {
+    cin >> patterns[i];
+    find_pattern(patterns[i], text, results);
+  }
 
-	for (int i = 0; i < text.size(); i++) {
-		currentnode = 0;
-		string suffix = text.substr(i, text.length());
-		//cout << "substring is " << suffix << endl;
-		for (int j = 0; j < suffix.length(); j++) {
-			cout << "currentnode is " << currentnode << endl;
-			if (trie[currentnode].next[letterToIndex(suffix[j])] != NA) {
-				currentnode = trie[currentnode].next[letterToIndex(suffix[j])];
-				cout << "\tcurrentnode moved to " << currentnode << endl;
-			}
-			else {
-				Node newNode;
-				newNode.indexInText = i+j;
-				trie.push_back(newNode);
-				trie[currentnode].next[letterToIndex(suffix[j])] = trie.size()-1;
-				cout << "\tadded " << suffix[j] << " to trie at index " << trie[currentnode].next[letterToIndex(suffix[j])];
-				cout << " with index in text of " << newNode.indexInText << endl;
-				currentnode = trie[currentnode].next[letterToIndex(suffix[j])];
-				cout << "\t\tcurrentnode moved to " << currentnode << endl;
-			}
-		}
-
-	}*/
-
-	vector<bool> isStart(text.size());
-
-	for (int i = 0; i < patterns.size(); i++) {
-		if (patterns[i].size() > text.size()) {
-			continue;
-		}
-		search(patterns[i], text, isStart);
-	}
-
-	for (int i = 0; i < isStart.size(); i++) {
-		if (isStart[i]) {
-			result.push_back(i);
-		}
-	}
-
-	//cout << result.size() << endl;
-
-	return result;
-}
-
-int main (void)
-{
-	string t;
-	cin >> t;
-
-	int n;
-	cin >> n;
-
-	vector <string> patterns (n);
-	for (int i = 0; i < n; i++)
-	{
-		cin >> patterns[i];
-	}
-
-	vector <int> ans;
-	ans = solve (t, n, patterns);
-
-	for (int i = 0; i < (int) ans.size (); i++)
-	{
-		cout << ans[i];
-		if (i + 1 < (int) ans.size ())
-		{
-			cout << " ";
-		}
-		else
-		{
-			cout << endl;
-		}
-	}
-
-	return 0;
+  for (int i = 0; i < results.size(); ++i) {
+    if (results[i]) {
+      printf("%d ", i);
+    }
+  }
+  printf("\n");
+  return 0;
 }
