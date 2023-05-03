@@ -123,51 +123,51 @@ int max_flow(FlowGraph& graph, int from, int to) {
         queue.push_back(from);
         dist[from] = 0;
 
-        //cout << "bfs" << endl;
+        cout << "bfs" << endl;
         
         while(!queue.empty()) {
             int front = queue.front();
-            //cout << "front is " << front << endl;
+            cout << "front is " << front << endl;
             queue.erase(queue.begin());
             
-            /*cout << "going to visit ";
+            cout << "going to visit ";
             for (int i = 0; i < graph.get_ids(front).size(); i++) {
                 cout << graph.get_edge(graph.get_ids(front)[i]).to << " ";
             }
             cout << endl;
-            */
+            
 
             for (int i = 0; i < graph.get_ids(front).size(); i++) {
-                //cout << "checking " << graph.get_edge(graph.get_ids(front)[i]).to << " ";
-                //cout << "whose flow is " << graph.get_edge(graph.get_ids(front)[i]).flow << " and capacity is " << graph.get_edge(graph.get_ids(front)[i]).capacity << endl;
+                cout << "checking " << graph.get_edge(graph.get_ids(front)[i]).to << " ";
+                cout << "whose flow is " << graph.get_edge(graph.get_ids(front)[i]).flow << " and capacity is " << graph.get_edge(graph.get_ids(front)[i]).capacity << endl;
                 if ((visited[graph.get_edge(graph.get_ids(front)[i]).to] == false) && (graph.get_edge(graph.get_ids(front)[i]).capacity - graph.get_edge(graph.get_ids(front)[i]).flow != 0) && (graph.get_edge(graph.get_ids(front)[i]).capacity > 0)) {
 
                     visited[graph.get_edge(graph.get_ids(front)[i]).to] = true;
-                    //cout << "visited " << graph.get_edge(graph.get_ids(front)[i]).to << endl;
+                    cout << "visited " << graph.get_edge(graph.get_ids(front)[i]).to << endl;
                     dist[graph.get_edge(graph.get_ids(front)[i]).to] = dist[front] + 1;
                     prev_dist[graph.get_edge(graph.get_ids(front)[i]).to] = front;
                     queue.push_back(graph.get_edge(graph.get_ids(front)[i]).to);
-                    /*cout << "queue contains ";
+                    cout << "queue contains ";
                     for (auto x : queue) {
                         cout << x << " ";
                     }
                     cout << endl;
-                    */
+                    
 
                     if (graph.get_edge(graph.get_ids(front)[i]).to == to) {
-                        //cout << "destination found" << endl;
+                        cout << "destination found" << endl;
                         path_exists = true;
                         queue.clear();
                         break;
                     }
                 }
                 else {
-                    //cout << graph.get_edge(graph.get_ids(front)[i]).to << " already visited " << endl;
+                    cout << graph.get_edge(graph.get_ids(front)[i]).to << " already visited " << endl;
                 }
             }
         }
 
-        /*for (auto x : prev_dist) {
+        for (auto x : prev_dist) {
         cout << x << ' ';
         }
         cout << endl;
@@ -179,7 +179,7 @@ int max_flow(FlowGraph& graph, int from, int to) {
 
         
         cout << "reversing path" << endl;
-        */
+        
 
         int reverse_path = to;
         id_lst.push_back(reverse_path);
@@ -190,12 +190,12 @@ int max_flow(FlowGraph& graph, int from, int to) {
 
         reverse(id_lst.begin(), id_lst.end());
 
-        /*cout << "printing path" << endl;
+        cout << "printing path" << endl;
         for (int i = 0; i < id_lst.size(); i++) {
             cout << id_lst[i] << " ";
         }
         cout << endl;
-        */
+        
         
         
         //if no path, return 'flow'
@@ -203,31 +203,46 @@ int max_flow(FlowGraph& graph, int from, int to) {
             return flow;
         }
 
-        //cout << "finding smallest flow" << endl;
+        cout << "id_lst is " << endl;
+        for (auto x : id_lst) {
+            cout << x << " ";
+        }
+        cout << endl;
+
+        cout << "finding smallest flow" << endl;
         //smallest capacity in shortest path = smallest_flow
         int smallest_flow = INT_MAX;
         for (int i = 0; i < id_lst.size()-1; i++) {
+            cout << "adjacent of " << id_lst[i] << " is ";
+            for (int a = 0; a < graph.get_ids(id_lst[i]).size(); a++) {
+                cout << graph.get_edge(graph.get_ids(id_lst[i])[a]).to << " ";
+            }
+            cout << endl;
+
             for (int j = 0; j < graph.get_ids(id_lst[i]).size(); j++) {
+                cout << endl << "i: " << i << " j: " << graph.get_edge(graph.get_ids(id_lst[i])[j]).to << endl;
                 if (graph.get_edge(graph.get_ids(id_lst[i])[j]).to == id_lst[i+1]) {
-                    //cout << "checking " << graph.get_edge(graph.get_ids(i)[j]).to << " ";
-                    //cout << "whose flow is " << graph.get_edge(graph.get_ids(i)[j]).flow << " and capacity is " << graph.get_edge(graph.get_ids(i)[j]).capacity << endl;
+                    cout << "checking " << graph.get_edge(graph.get_ids(id_lst[i])[j]).to << " ";
+                    cout << "whose flow is " << graph.get_edge(graph.get_ids(id_lst[i])[j]).flow << " and capacity is " << graph.get_edge(graph.get_ids(i)[j]).capacity << endl;
                     if (graph.get_edge(graph.get_ids(id_lst[i])[j]).capacity - graph.get_edge(graph.get_ids(id_lst[i])[j]).flow < smallest_flow && graph.get_edge(graph.get_ids(id_lst[i])[j]).capacity != 0 && graph.get_edge(graph.get_ids(id_lst[i])[j]).capacity - graph.get_edge(graph.get_ids(id_lst[i])[j]).flow != 0) {
                         smallest_flow = graph.get_edge(graph.get_ids(id_lst[i])[j]).capacity - graph.get_edge(graph.get_ids(id_lst[i])[j]).flow;
-                        //cout << "found smallest flow at " << graph.get_edge(graph.get_ids(i)[j]).to << " ";
-                        //cout << "whose flow is " << graph.get_edge(graph.get_ids(i)[j]).flow << " and capacity is " << graph.get_edge(graph.get_ids(i)[j]).capacity << endl;                    }
+                        cout << "found smallest flow at " << graph.get_edge(graph.get_ids(i)[j]).to << " ";
+                        cout << "whose flow is " << graph.get_edge(graph.get_ids(i)[j]).flow << " and capacity is " << graph.get_edge(graph.get_ids(i)[j]).capacity << endl;
                     } 
                 }
             }
         }
 
-        //cout << "smallest flow is " << smallest_flow << endl;
+        cout << "smallest flow is " << smallest_flow << endl;
 
-        //cout << "adding smallest flow" << endl;
+        cout << "adding smallest flow" << endl;
 
         //add smallest_flow to each edge in shortest path
         for (int i = 0; i < id_lst.size()-1; i++) {
             for (int j = 0; j < graph.get_ids(id_lst[i]).size(); j++) {
+                cout << "comparing " << id_lst[i] << " and " << graph.get_edge(graph.get_ids(id_lst[i])[j]).to << endl;
                 if (graph.get_edge(graph.get_ids(id_lst[i])[j]).to == id_lst[i+1] && graph.get_edge(graph.get_ids(id_lst[i])[j]).capacity != 0) {
+                    cout << "adding flow to " << id_lst[i] << ":" << graph.get_edge(graph.get_ids(id_lst[i])[j]).to << endl;
                     graph.add_flow(graph.get_ids(id_lst[i])[j], smallest_flow);
                 }
             }
@@ -235,13 +250,11 @@ int max_flow(FlowGraph& graph, int from, int to) {
 
         flow += smallest_flow;
 
-        /*for (int i = 0; i < graph.edges.size(); i++) {
+        for (int i = 0; i < graph.edges.size(); i++) {
             cout << "from: " << graph.edges[i].from << " to: " << graph.edges[i].to << " flow: " << graph.edges[i].flow << " cap: " << graph.edges[i].capacity << endl;
         }
 
-        cout << "\tflow is " << flow << endl;
-        */
-        
+        cout << "\tflow is " << flow << endl; 
     }
 }
 
