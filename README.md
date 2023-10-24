@@ -37,13 +37,13 @@
 > Given a number of flights and a list of crews which can work on certain flights, maximize the number of assigned crews using network flows.
 [Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/5_advanced_algorithms_%26_complexity/week1_flow_algorithms/2_airline_crews/airline_crews.cpp)
 
-####  Find a Circulation in a Network (Network Flows)
-> Given nodes of a network with minimum and maximum flow, determine whether flow can be assigned such that each edge does not exceed its capacity and each vertex has the same inflow and outflow.
-[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/6_genome_assembly/week3_genome_assembly_faces_real_sequencing_data/1_find_circulation_in_network/find_circulation.cpp)
-
 ####  Find All Occurrences of Pattern in String (Knuth-Morris-Pratt)
 > Given a string and a pattern, output all occurrences of the pattern in almost linear time using the KMP algorithm.
 [Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/4_algorithms_on_strings/week4_suffix_array%26trees/1_kmp/kmp.cpp)
+
+####  Find a Circulation in a Network (Network Flows)
+> Given nodes of a network with minimum and maximum flow, determine whether flow can be assigned such that each edge does not exceed its capacity and each vertex has the same inflow and outflow.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/6_genome_assembly/week3_genome_assembly_faces_real_sequencing_data/1_find_circulation_in_network/find_circulation.cpp)
 
 ####   Building Roads to Connect Cities (Spanning Trees)
 > Given the coordinates of cities, output the minimum total length of paths such that there is a path between any 2 cities.
