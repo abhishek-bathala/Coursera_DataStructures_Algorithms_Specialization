@@ -3,6 +3,10 @@
 
 [Data Structures and Algorithms | Coursera](https://www.coursera.org/specializations/data-structures-algorithms)
 
+[Certificate Link](https://www.coursera.org/account/accomplishments/specialization/5ZMYGXSU4FAC)
+
+*Notable problems and solutions below*
+
 
 # Overview of Course Material
 
