@@ -24,5 +24,32 @@
 6. [Genome Assembly Programming Challenge](https://www.coursera.org/learn/assembling-genomes?specialization=data-structures-algorithms)
 	> Assembling Phi 174x genomes
 
-## File Structure
+## Notable Problems & Solutions
+#### Maximum Value of an Arithmetic Expression (Dynamic Programming)
+> Given an arithmetic expression, place brackets to maximize the solution to the expression.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/1_algorithmic_toolbox/week6_dynamic_programming2/3_maximum_value_of_an_arithmetic_expression/placing_parentheses.cpp)
+
+####  Hashing with Chains (Hash Tables)
+> Given a hash function and number of buckets, take inputs to add, delete, or output a string into the hash table. 
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/2_data_structures/week4_hash_tables/2_hash_chains/hash_chains.cpp)
+
+####   Building Roads to Connect Cities (Spanning Trees)
+> Given the coordinates of cities, output the minimum total length of paths such that there is a path between any 2 cities.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/3_algorithms_on_graphs/week5_spanning_trees/1_connecting_points/connecting_points.cpp)
+
+####  Find All Occurrences of Pattern in String (Knuth-Morris-Pratt)
+> Given a string and a pattern, output all occurrences of the pattern in almost linear time using the KMP algorithm.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/4_algorithms_on_strings/week4_suffix_array%26trees/1_kmp/kmp.cpp)
+
+#### Assigning Airline Crews to Flights (Bipartite Graphs)
+> Given a number of flights and a list of crews which can work on certain flights, maximize the number of assigned crews using network flows.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/5_advanced_algorithms_%26_complexity/week1_flow_algorithms/2_airline_crews/airline_crews.cpp)
+
+####  Find a Circulation in a Network (Network Flows)
+> Given nodes of a network with minimum and maximum flow, determine whether flow can be assigned such that each edge does not exceed its capacity and each vertex has the same inflow and outflow.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/6_genome_assembly/week3_genome_assembly_faces_real_sequencing_data/1_find_circulation_in_network/find_circulation.cpp)
+
+####  Bubble Detection (de Bruijn Graphs)
+> Given error-prone reads, output whether there is a bubble (signifying multiple possible final genomes, and therefore, an error) by constructing a de Bruijn graph.
+[Solution File](https://github.com/abhishek-bathala/Coursera_DataStructures_Algorithms_Specialization/blob/main/6_genome_assembly/week3_genome_assembly_faces_real_sequencing_data/3_bubble_detection/bubble_detection.cpp)
 
